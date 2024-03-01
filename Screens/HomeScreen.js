@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Import Ionicons for icons
+import { useTotalExpenses } from "./Context";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({ navigation }) => {
   // Dummy data for demonstration
@@ -9,6 +11,7 @@ const HomeScreen = ({ navigation }) => {
     totalExpenses: "$1,500",
     investmentPerformance: "+5%",
   };
+  const { totalExpenses } = useTotalExpenses();
 
   const handleLogout = () => {
     // Add logic for user logout
@@ -22,22 +25,29 @@ const HomeScreen = ({ navigation }) => {
     navigation.navigate("AddTransaction");
   };
 
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Welcome back, User!</Text>
       <View style={styles.overviewContainer}>
+
+
         <View style={styles.overviewItem}>
           <Text style={styles.overviewLabel}>Account Balance</Text>
           <Text style={styles.overviewValue}>
             {financialOverview.accountBalance}
           </Text>
         </View>
+
+
         <View style={styles.overviewItem}>
           <Text style={styles.overviewLabel}>Total Expenses (This Month)</Text>
           <Text style={styles.overviewValue}>
-            {financialOverview.totalExpenses}
+            ${totalExpenses}
           </Text>
         </View>
+
+
         <View style={styles.overviewItem}>
           <Text style={styles.overviewLabel}>Investment Performance</Text>
           <Text style={styles.overviewValue}>
@@ -50,6 +60,8 @@ const HomeScreen = ({ navigation }) => {
           <Ionicons name="add-circle-outline" size={24} color="white" />
           <Text style={styles.buttonText}>Add Transaction</Text>
         </TouchableOpacity>
+
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("ExpenseTracking")}
@@ -57,6 +69,8 @@ const HomeScreen = ({ navigation }) => {
           <Ionicons name="cash-outline" size={24} color="white" />
           <Text style={styles.buttonText}>Expense Tracking</Text>
         </TouchableOpacity>
+
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("Budget")}
@@ -64,6 +78,8 @@ const HomeScreen = ({ navigation }) => {
           <Ionicons name="wallet-outline" size={24} color="white" />
           <Text style={styles.buttonText}>Budget</Text>
         </TouchableOpacity>
+
+
         <TouchableOpacity
           style={styles.button}
           onPress={() => navigation.navigate("Transactions")}
