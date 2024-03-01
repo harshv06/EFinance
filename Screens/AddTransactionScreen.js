@@ -45,9 +45,6 @@ const AddTransactionScreen = ({ navigation }) => {
 
   const handleSaveTransaction = () => {
     // Add logic to save transaction
-    console.log("Amount:", amount);
-    console.log("Category:", category);
-    console.log("Date:", date);
     // Navigate back to home screen after saving transaction
     const newTransaction={
       id: Date.now(),   // Using current timestamp as the unique identifier

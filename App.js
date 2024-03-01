@@ -2,6 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import Navigator from "./Navigator";
 import {
+  BudgetProvider,
   BudgetTrackingProvider,
   TotalExpensesProvider,
   TransactionsProvider,
@@ -11,9 +12,9 @@ export default function App() {
   return (
     <View style={{ flex: 1 }}>
       <TransactionsProvider>
-        <TotalExpensesProvider>
+        <BudgetProvider>
           <Navigator />
-        </TotalExpensesProvider>
+        </BudgetProvider>
       </TransactionsProvider>
       {/* <StatusBar style="auto" /> */}
     </View>

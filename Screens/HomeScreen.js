@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; // Import Ionicons for icons
-import { useTotalExpenses } from "./Context";
+import { useTransactions } from "./Context";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const HomeScreen = ({ navigation }) => {
@@ -11,7 +11,7 @@ const HomeScreen = ({ navigation }) => {
     totalExpenses: "$1,500",
     investmentPerformance: "+5%",
   };
-  const { totalExpenses } = useTotalExpenses();
+  const { totalExpenses,balance } = useTransactions();
 
   const handleLogout = () => {
     // Add logic for user logout
@@ -35,7 +35,7 @@ const HomeScreen = ({ navigation }) => {
         <View style={styles.overviewItem}>
           <Text style={styles.overviewLabel}>Account Balance</Text>
           <Text style={styles.overviewValue}>
-            {financialOverview.accountBalance}
+            ${balance}
           </Text>
         </View>
 
@@ -80,13 +80,13 @@ const HomeScreen = ({ navigation }) => {
         </TouchableOpacity>
 
 
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Transactions")}
+          onPress={() => navigation.navigate("Transaction")}
         >
           <Ionicons name="list-outline" size={24} color="white" />
           <Text style={styles.buttonText}>Transactions</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
         <Ionicons name="log-out-outline" size={24} color="white" />
