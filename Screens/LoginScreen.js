@@ -5,20 +5,42 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const LoginScreen = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigation=useNavigation()
+  const navigation = useNavigation();
 
   const handleLogin = () => {
-    // Add logic for user login
-    console.log("Login button pressed");
-    // Navigate to the dashboard screen after successful login
-    navigation.navigate("Home");
+    const data = {
+      email: email,
+      password: password,
+    };
+    console.log(data);
+    fetch("http://192.168.0.105:4000/v2/Login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.Error) {
+          Alert.alert("Failed", data.Error, [{ text: "Ok" }]);
+          return;
+        } else {
+          console.log(result);
+          AsyncStorage.setItem("token",result.data)
+          AsyncStorage.setItem("id",result.id)
+          Alert.alert("Success","Logged in",[{text:'Ok',onPress:()=>{navigation.navigate("Home")}}])
+        }
+      });
   };
 
   return (
@@ -43,7 +65,7 @@ const LoginScreen = () => {
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginButtonText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+        <TouchableOpacity onPress={() => navigation.navigate("Signup")}>
           <Text style={styles.link}>Don't have an account? Register here</Text>
         </TouchableOpacity>
       </View>

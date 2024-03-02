@@ -8,12 +8,16 @@ import AddTransactionScreen from "./Screens/AddTransactionScreen";
 import ExpenseTrackingScreen from "./Screens/ExpenseTrackingScreen";
 import BudgetScreen from "./Screens/BudgetScreen";
 import TransactionScreen from "./Screens/TransactionScreen";
+import SignupScreen from "./Screens/SignupScreen";
+import OtpScreen from "./Screens/OtpScreen";
 
 const Navigator = () => {
   const Stack = createStackNavigator();
   return (
     <NavigationContainer>
         <Stack.Navigator>
+            <Stack.Screen name='Signup' component={SignupScreen} options={{headerShown:false}} />
+            <Stack.Screen name='OTP' component={OtpScreen} options={{headerShown:false}} />
             <Stack.Screen name='Login' component={LoginScreen} options={{headerShown:false}} />
             <Stack.Screen name='Home' component={HomeScreen} options={{headerShown:false}} />
             <Stack.Screen name='AddTransaction' component={AddTransactionScreen} options={{headerShown:false}} />
